@@ -25,10 +25,6 @@ function passwordReducer(state, action) {
 }
 
 function Login(props) {
-    // const [enteredEmail, setEnteredEmail] = useState('');
-    // const [emailIsValid, setEmailIsValid] = useState();
-    // const [enteredPassword, setEnteredPassword] = useState('');
-    // const [passwordIsValid, setPasswordIsValid] = useState();
     const [formIsValid, setFormIsValid] = useState(false);
 
     const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -67,30 +63,18 @@ function Login(props) {
     }, [emailIsValid, passwordIsValid]);
 
     function emailChangeHandler(event) {
-        // setEnteredEmail(event.target.value);
         dispatchEmail({type: 'USER_INPUT', val: event.target.value});
-
-        // setFormIsValid(
-        //     event.target.value.includes('@') && passwordState.isValid
-        // );
     }
 
     function passwordChangeHandler(event) {
-        // setEnteredPassword(event.target.value);
         dispatchPassword({type: 'USER_INPUT', val: event.target.value})
-
-        // setFormIsValid(
-        //     emailState.isValid && event.target.value.trim().length > 6
-        // );
     }
 
     function validateEmailHandler() {
-        // setEmailIsValid(emailState.isValid);
         dispatchEmail({type: 'INPUT_BLUR'});
     }
 
     function validatePasswordHandler() {
-        // setPasswordIsValid(enteredPassword.trim().length > 6);
         dispatchPassword({type: 'INPUT_BLUR'});
     }
 
