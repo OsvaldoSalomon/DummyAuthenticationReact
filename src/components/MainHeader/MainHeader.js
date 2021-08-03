@@ -7,7 +7,7 @@ function MainHeader(props) {
     return (
         <header className={classes['main-header']}>
             <h1>Dummy Authentication Page</h1>
-            <Navigation isLoggedIn={props.isAuthenticated} onLogout={props.onLogout}/>
+            <Navigation />
         </header>
     );
 }
