@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer, useContext} from 'react';
+import React, {useState, useEffect, useReducer, useContext, useRef} from 'react';
 
 import Card from '../UI/Card/Card';
 import Input from "../UI/Input/Input";
@@ -41,6 +41,9 @@ function Login(props) {
 
     const authCtx = useContext(AuthContext);
 
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+
     useEffect(() => {
         console.log('Effect Running');
 
@@ -49,8 +52,8 @@ function Login(props) {
         }
     }, []);
 
-    const { isValid: emailIsValid } = emailState;
-    const { isValid: passwordIsValid } = passwordState;
+    const {isValid: emailIsValid} = emailState;
+    const {isValid: passwordIsValid} = passwordState;
 
     useEffect(() => {
         const identifier = setTimeout(() => {
@@ -84,13 +87,20 @@ function Login(props) {
 
     function submitHandler(event) {
         event.preventDefault();
-        authCtx.onLogin(emailState.value, passwordState.value);
+        if (formIsValid) {
+            authCtx.onLogin(emailState.value, passwordState.value);
+        } else if (!emailIsValid) {
+            emailInputRef.current.focus();
+        } else {
+            passwordInputRef.current.focus();
+        }
     }
 
     return (
         <Card className={classes.login}>
             <form onSubmit={submitHandler}>
                 <Input
+                    ref={emailInputRef}
                     id="email"
                     label="E-Mail"
                     type="email"
@@ -100,6 +110,7 @@ function Login(props) {
                     onBlur={validateEmailHandler}
                 />
                 <Input
+                    ref={passwordInputRef}
                     id="password"
                     label="Password"
                     type="password"

@@ -32,7 +32,7 @@
 }
 
 .control.invalid input {
-    border-color: red;
+    border-color: #bf0000;
     background: #ffaaaa;
 }
 
